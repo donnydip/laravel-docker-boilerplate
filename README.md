@@ -31,7 +31,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 ## Deployment Setup
 * Clone repo jika belum
 ```
-git clone http://git.mfint.my.id/web/web-001-docker.git
+git clone https://github.com/donnydip/laravel-docker-boilerplate.git
 ```
 * Masuk ke direktori repo docker
 ```
@@ -41,6 +41,8 @@ cd web-001-docker
 ```
 cp .env.example .env
 ```
+* Setting .env terlebih dahulu
+
 * Build Docker Image
 ```
 sudo docker compose build
@@ -53,17 +55,9 @@ sudo docker compose up -d
 ```
 sudo docker compose exec --user=root php /bin/bash -c ' chown www-data:www-data /var/www'
 ```
-* Clone Project Repo
-```
-sudo docker compose exec php git clone --branch test https://git.mfint.my.id/web/web-32.git .
-```
 * Change Permission
 ```
 sudo docker compose exec php /bin/bash -c 'chmod +x /var/www/artisan'
-```
-* Setup App Env
-```
-cp app/.env.example app/.env
 ```
 * Change Owner App Env
 ```

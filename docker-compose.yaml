@@ -1,0 +1,48 @@
+name: ${COMPOSE_NAME}
+services:
+  php:
+    build:
+      context: ./docker-config
+      dockerfile: php.dockerfile
+    restart: ${CONTAINER_RESTART}
+    ports:
+      - 5173:5173
+    user: "33:33"
+    image: web-001-php
+    working_dir: /var/www
+    depends_on:
+      - db
+    volumes:
+      - ./:/var/www
+    environment:
+      DBDATE: y4md/
+    networks:
+      - web-001
+  web:
+    image: nginx:1.27.2
+    restart: ${CONTAINER_RESTART}
+    ports:
+      - ${HTTP_PORT}:80
+    volumes:
+      - ./:/var/www
+      - ./docker-config/nginx-conf:/etc/nginx/conf.d/
+    networks:
+      - web-001
+  db:
+    image: postgres:16-alpine
+    restart: ${CONTAINER_RESTART}
+    user: "0:0"
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${PG_DB}
+      POSTGRES_USER: ${PG_UID}
+      POSTGRES_PASSWORD: ${PG_PWD}
+    ports:
+      - 127.0.0.1:${PG_PORT}:5432
+    networks:
+      - web-001
+networks:
+  web-001:
+    driver: bridge
+

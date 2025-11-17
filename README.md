@@ -53,7 +53,7 @@ sudo docker compose up -d
 ```
 * Change Owner To www-data
 ```
-sudo docker compose exec --user=root php /bin/bash -c ' chown www-data:www-data /var/www'
+sudo docker compose exec --user=root php /bin/bash -c ' chown -R www-data:www-data /var/www'
 ```
 * Change Permission
 ```
